@@ -1,0 +1,101 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class Calculator implements ActionListener {
+    double number, answer;
+    int calculation;
+    JFrame frame;
+    JLabel label = new JLabel();
+    JTextField textField = new JTextField();
+    JRadioButton onRadioButton = new JRadioButton("on");
+    ```
+
+    JButton addButton = new JButton("+");
+    JButton subtractButton = new JButton("-");
+    JButton multiplyButton = new JButton("*");
+    JButton divideButton = new JButton("/");
+    ```
+
+
+    public void actionPerformed(ActionEvent event) {
+        if (event.getSource() == addButton) {
+            calculation = 1;
+            label.setText("+");
+        } else if (event.getSource() == subtractButton) {
+            calculation = 2;
+            label.setText("-");
+        } else if (event.getSource() == multiplyButton) {
+            calculation = 3;
+            label.setText("*");
+        } else if (event.getSource() == divideButton) {
+            calculation = 4;
+            label.setText("/");
+        } else if (event.getSource() == onRadioButton) {
+            if (onRadioButton.isSelected()) {
+                label.setText("");
+                textField.setText("");
+            }
+        } else if (event.getSource() == clearButton) {
+            label.setText("");
+            textField.setText("");
+        } else if (event.getSource() == equalsButton) {
+            answer = 0;
+            if (calculation == 1) {
+                answer = number + Double.parseDouble(textField.getText());
+            } else if (calculation == 2) {
+                answer = number - Double.parseDouble(textField.getText());
+            } else if (calculation == 3) {
+                answer = number * Double.parseDouble(textField.getText());
+            } else if (calculation == 4) {
+                answer = number / Double.parseDouble(textField.getText());
+            }
+            label.setText(String.valueOf(answer));
+            textField.setText("");
+            // Обновление значения number для следующего вычисления
+            number = answer;
+        }
+    }
+
+    public static void main(String[] args) {
+        Calculator calculator = new Calculator();
+        calculator.createGUI();
+    }
+
+    private void createGUI() {
+        frame = new JFrame("Calculator");
+        frame.setSize(300, 200);
+        frame.setLayout(new FlowLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Добавление компонентов
+        frame.add(label);
+        frame.add(textField);
+        frame.add(addButton);
+        frame.add(subtractButton);
+        frame.add(multiplyButton);
+        frame.add(divideButton);
+        frame.add(onRadioButton);
+        frame.add(clearButton);
+        frame.add(equalsButton);
+
+        // Настройка обработчиков событий
+        addButton.addActionListener(this);
+        subtractButton.addActionListener(this);
+        multiplyButton.addActionListener(this);
+        divideButton.addActionListener(this);
+        onRadioButton.addActionListener(this);
+        clearButton.addActionListener(this);
+        equalsButton.addActionListener(this);
+
+        // Отображение фрейма
+        frame.setVisible(true);
+    }
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
